@@ -15,7 +15,7 @@ def evaluate_model(predictions, test_labels):
     return accuracy
 
 def main():
-    saved_checkpoint = "./sensitive_classification_weights/"
+    saved_checkpoint = "KhoaUSA76/contrastive-learning-sensitive-topic-classification"
     st.set_page_config(page_title = 'Testing Sensitive Sentences', page_icon=':books:')
     st.title("Testing Sensitive sentences")
     

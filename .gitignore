@@ -1,4 +1,4 @@
-/sensitive_classification_weights/
+# /sensitive_classification_weights/
 *.zip
 /docs/
 /data/
