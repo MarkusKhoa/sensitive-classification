@@ -1,7 +1,6 @@
 import streamlit as st
 import numpy as np
-
-from setfit import SetFitModel, SetFitTrainer
+from setfit import SetFitModel
 
 @st.cache_resource
 def load_model(saved_checkpoint):
@@ -18,18 +17,20 @@ def evaluate_model(predictions, test_labels):
     return accuracy
 
 def main():
+    # First Streamlit command: set_page_config
+    st.set_page_config(page_title='Testing Sensitive Sentences', page_icon=':books:')
+
     saved_checkpoint = "KhoaUSA76/contrastive-sensitive-classification"
     loaded_model = load_model(saved_checkpoint)
-
-    st.set_page_config(page_title = 'Testing Sensitive Sentences', page_icon=':books:')
+    
     st.title("Testing Sensitive sentences")
     
-    res_dict = {0: "normal", 1:"sensitive"}
+    res_dict = {0: "normal", 1: "sensitive"}
     
     # Allow user question
     user_question = st.text_input("Ask a question")
     if user_question:
-        prediction = predict(loaded_model=loaded_model, test_sents = user_question)
+        prediction = predict(loaded_model=loaded_model, test_sents=user_question)
         st.write("Prediction: ", res_dict[prediction])
     
 if __name__ == '__main__':
