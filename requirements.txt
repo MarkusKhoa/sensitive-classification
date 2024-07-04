@@ -1,0 +1,5 @@
+transformers==4.39.0
+sentence-transformers
+setfit
+datasets
+streamlit
