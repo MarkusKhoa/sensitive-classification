@@ -3,8 +3,11 @@ import numpy as np
 
 from setfit import SetFitModel, SetFitTrainer
 
-def predict(saved_checkpoint, test_sents):
-    loaded_model = SetFitModel.from_pretrained(saved_checkpoint)
+@st.cache_resource
+def load_model(saved_checkpoint):
+    return SetFitModel.from_pretrained(saved_checkpoint)
+
+def predict(loaded_model, test_sents):
     predictions = loaded_model.predict(test_sents).tolist()
     return predictions
 
@@ -15,7 +18,9 @@ def evaluate_model(predictions, test_labels):
     return accuracy
 
 def main():
-    saved_checkpoint = "KhoaUSA76/contrastive-learning-sensitive-topic-classification"
+    saved_checkpoint = "KhoaUSA76/contrastive-sensitive-classification"
+    loaded_model = load_model(saved_checkpoint)
+
     st.set_page_config(page_title = 'Testing Sensitive Sentences', page_icon=':books:')
     st.title("Testing Sensitive sentences")
     
@@ -24,7 +29,7 @@ def main():
     # Allow user question
     user_question = st.text_input("Ask a question")
     if user_question:
-        prediction = predict(saved_checkpoint=saved_checkpoint, test_sents = user_question)
+        prediction = predict(loaded_model=loaded_model, test_sents = user_question)
         st.write("Prediction: ", res_dict[prediction])
     
 if __name__ == '__main__':
