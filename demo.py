@@ -19,7 +19,7 @@ def evaluate_model(predictions, test_labels):
     accuracy = (predictions == test_labels).mean()
     return accuracy
 
-def save_feedback(data, file_path="demo_feedback.csv"):
+def save_feedback(data, file_path):
     df = pd.DataFrame([data])  # Create a DataFrame with the new data
     if os.path.exists(file_path):
         df.to_csv(file_path, mode='a', header=False, index=False)  # Append to the existing file
