@@ -49,7 +49,8 @@ def main():
                 "prediction": res_dict[prediction],
                 "feedback": feedback_label
             }
-            save_feedback(data = feedback_data, file_path = "official_feedback_data.csv")
+            file_path = os.path.abspath("official_feedback_data.csv")
+            save_feedback(data = feedback_data, file_path = file_path)
             st.success("Feedback submitted")
     
 if __name__ == '__main__':
