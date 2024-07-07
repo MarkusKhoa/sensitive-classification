@@ -5,3 +5,5 @@ datasets
 streamlit
 pymongo
 python-dotenv
+fastapi
+uvicorn

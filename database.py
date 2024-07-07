@@ -9,7 +9,8 @@ def init_mongo_collection():
     mongo_pass = os.getenv("MONGODB_PASSWORD")
     cluster = MongoClient(f"mongodb+srv://khoapham:{mongo_pass}@feedbacks.sommds7.mongodb.net/?retryWrites=true&w=majority&appName=feedbacks",
                           tls=True,
-                          tlsAllowInvalidCertificates=True)
+                          tlsAllowInvalidCertificates=True,
+                          serverSelectionTimeoutMS=5000)
     db = cluster['ChatbotData']
     collection = db['sensitive_feedbacks']
     return collection
