@@ -3,3 +3,5 @@ sentence-transformers
 setfit
 datasets
 streamlit
+pymongo
+python-dotenv
