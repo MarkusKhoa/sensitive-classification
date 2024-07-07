@@ -4,6 +4,7 @@ import pandas as pd
 import os
 
 from setfit import SetFitModel
+from database import init_mongo_collection
 
 @st.cache_resource
 def load_model(saved_checkpoint):
@@ -29,11 +30,11 @@ def save_feedback(data, file_path):
 def main():
     # First Streamlit command: set_page_config
     st.set_page_config(page_title='Testing Sensitive Sentences', page_icon=':books:')
-
+    st.title("Testing Sensitive sentences")
+    
+    db_collection = init_mongo_collection()
     saved_checkpoint = "KhoaUSA76/contrastive-sensitive-classification"
     loaded_model = load_model(saved_checkpoint)
-    
-    st.title("Testing Sensitive sentences")
     res_dict = {0: "normal", 1: "sensitive"}
     
     # Allow user question
@@ -49,8 +50,9 @@ def main():
                 "prediction": res_dict[prediction],
                 "feedback": feedback_label
             }
-            file_path = os.path.abspath("official_feedback_data.csv")
-            save_feedback(data = feedback_data, file_path = file_path)
+            # file_path = os.path.abspath("official_feedback_data.csv")
+            # save_feedback(data = feedback_data, file_path = file_path)
+            db_collection.insert_one(feedback_data)
             st.success("Feedback submitted")
     
 if __name__ == '__main__':
